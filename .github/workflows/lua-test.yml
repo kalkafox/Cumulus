@@ -31,4 +31,4 @@ jobs:
       run: make
     - name: Test lua
       working-directory: lua/tests
-      run: lua/src/lua test.lua
+      run: ../src/lua test.lua
