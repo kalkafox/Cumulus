@@ -23,5 +23,6 @@ jobs:
         repository: 'lua/lua'
         ref: 'v5.4.3'
         clean: false
+        path: 'lua/src'
     - name: List directory
       run: echo test
