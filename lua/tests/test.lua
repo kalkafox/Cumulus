@@ -1,5 +1,5 @@
 -- Add path for lua to find the module in ../json/json.lua
-local parent_path = "../../"
+local parent_path = "../"
 package.path = package.path .. ";"..parent_path.."json/?.lua;"..parent_path.."?.lua"
 -- Load the module
 local json = require("json")
