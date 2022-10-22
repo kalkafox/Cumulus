@@ -9,6 +9,8 @@ end
 -- Based off of the global PrintTable function from Garry's Mod
 -- https://github.com/Facepunch/garrysmod/blob/master/garrysmod/lua/includes/util.lua#L59-L93
 
+util = util or {}
+
 function util.print_table(t, indent, style, done)
     indent = indent or 2
     done = done or {}
