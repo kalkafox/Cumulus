@@ -25,4 +25,9 @@ jobs:
         clean: false
         path: 'lua/src'
     - name: List directory
-      run: echo test
+      run: cat util.lua
+    - name: Build lua
+      working-directory: lua/src
+      run: make
+    - name: Test lua
+      run: lua print("Hello world!")
