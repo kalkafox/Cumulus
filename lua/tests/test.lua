@@ -3,7 +3,7 @@ local parent_path = "../"
 package.path = package.path .. ";"..parent_path.."json/?.lua;"..parent_path.."?.lua"
 -- Load the module
 local json = require("json")
-local util = require("util")
+require("util")
 
 local alphanumeric = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 local alphanumeric_len = alphanumeric:len()
