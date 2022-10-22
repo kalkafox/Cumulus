@@ -30,4 +30,5 @@ jobs:
       working-directory: lua/src
       run: make
     - name: Test lua
-      run: lua print("Hello world!")
+      working-directory: lua/tests
+      run: lua test.lua
