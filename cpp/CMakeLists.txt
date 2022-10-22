@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.23)
 
-
-# Dependency project, just include the src directory
+# Add the src directory for all other CMakeLists.txt files that run with this
+# CMakeLists.txt file
 include_directories(src)
