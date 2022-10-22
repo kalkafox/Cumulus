@@ -1,13 +1,10 @@
-name: Rust
+name: Lua test
 
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
-env:
-  CARGO_TERM_COLOR: always
 
 jobs:
   build:
@@ -25,5 +22,6 @@ jobs:
       with:
         repository: 'lua/lua'
         ref: 'v5.4.3'
+        clean: false
     - name: List directory
       run: echo test
