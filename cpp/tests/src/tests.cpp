@@ -103,6 +103,50 @@ void run_tests() {
 
     println();
 
+    std::unique_ptr ptr = std::make_unique<std::string>("Hey, I'm a unique pointer!");
+
+    print(ptr);
+
+    println();
+
+    std::shared_ptr ptr2 = std::make_shared<std::string>("Hey, I'm a shared pointer!");
+
+    print(ptr2);
+
+    println();
+
+    std::cout << "Testing with random numbers..." << std::endl;
+
+    println();
+
+    std::vector<int> random_numbers;
+
+    for (int i = 0; i < 250; i++) {
+        std::uniform_int_distribution<> dis(0, 1000); // defining the range
+        int number = dis(gen);
+        random_numbers.push_back(number);
+        print(number, " ");
+    }
+
+    println();
+
+    print(random_numbers);
+
+    println();
+
+    std::cout << "Testing with random floats..." << std::endl;
+
+    println();
+
+    std::vector<float> random_floats;
+
+    for (int i = 0; i < 250; i++) {
+        std::uniform_real_distribution<> dis(0, 1000); // defining the range
+        float number = dis(gen);
+        random_floats.push_back(number);
+        print(number, " ");
+    }
+
     println("Testing complete!");
 
 }
