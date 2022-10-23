@@ -1,5 +1,5 @@
 {
-    "cmake.sourceDirectory": "${workspaceFolder}/cpp",
+    "cmake.sourceDirectory": "${workspaceFolder}/cpp/tests",
     "files.associations": {
         "iostream": "cpp",
         "algorithm": "cpp",
