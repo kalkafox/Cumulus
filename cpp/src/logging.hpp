@@ -1,96 +1,115 @@
 #pragma once
 
 #include <string>
-#include <fstream>
 #include <iostream>
 #include <vector>
-#include <map>
 #include <set>
-#include <memory>
-
-void print(const char*);
-void print(const std::string&);
-void print(const int&);
-void print(const float&);
-void print(const double&);
-void print(const bool&);
-
-void println(const char*);
-void println(const std::string&);
-void println(const int&);
-void println(const float&);
-void println(const double&);
-void println(const bool&);
-
+#include <map>
 
 template<typename T>
-void print(const T&);
+inline void print(const T& t) { std::cout << t; }
 
 template<typename T, typename... Args>
-void print(const T&, const Args&...);
+inline void print(const T& t, const Args&... args) { print(t); print(args...); }
 
 template<typename... Args>
-void println(const Args&...);
+inline void println(const Args&... args) { print(args...); std::cout << std::endl; }
+
+inline void println() { std::cout << std::endl; }
 
 template<typename T>
-void print(const std::vector<T>&);
+inline void print(const std::vector<T>& vec) {
+    std::cout << "[";
+    for (auto it = vec.begin(); it != vec.end(); ++it) {
+        print(*it);
+        if (it != vec.end() - 1) std::cout << ", ";
+    }
+    std::cout << "]";
+}
 
 template<typename T>
-void print(const std::set<T>&);
+inline void print(const std::set<T>& set) {
+    std::cout << "{";
+    for (auto it = set.begin(); it != set.end(); ++it) {
+        print(*it);
+        if (it != set.end() - 1) std::cout << ", ";
+    }
+    std::cout << "}";
+}
 
 template<typename T, typename U>
-void print(const std::map<T, U>&);
+inline void print(const std::map<T, U>& map) {
+    std::cout << "{";
+    for (auto it = map.begin(); it != map.end(); ++it) {
+        print(it->first);
+        std::cout << ": ";
+        print(it->second);
+        if (it != map.end() - 1) std::cout << ", ";
+    }
+    std::cout << "}";
+}
 
 template<typename T>
-void print(const std::shared_ptr<T>&);
+inline void print(const std::shared_ptr<T>& ptr) {
+    std::cout << ptr.get();
+}
 
 template<typename T>
-void print(const std::weak_ptr<T>&);
+inline void print(const std::unique_ptr<T>& ptr) {
+    std::cout << ptr.get();
+}
 
 template<typename T>
-void print(const std::initializer_list<T>&);
+inline void print(const std::weak_ptr<T>& ptr) {
+    std::cout << ptr.lock().get();
+}
 
 template<typename T>
-void print(const std::tuple<T>&);
+inline void print(const std::initializer_list<T>& list) {
+    std::cout << "{";
+    for (auto it = list.begin(); it != list.end(); ++it) {
+        print(*it);
+        if (it != list.end() - 1) std::cout << ", ";
+    }
+    std::cout << "}";
+}
+
+template<typename T>
+inline void print(const std::tuple<T>& tuple) {
+    std::cout << "(";
+    print(std::get<0>(tuple));
+    std::cout << ")";
+}
 
 template<typename T, typename U>
-void print(const std::tuple<T, U>&);
+inline void print(const std::tuple<T, U>& tuple) {
+    std::cout << "(";
+    print(std::get<0>(tuple));
+    std::cout << ", ";
+    print(std::get<1>(tuple));
+    std::cout << ")";
+}
 
 template<typename T, typename U, typename V>
-void print(const std::tuple<T, U, V>&);
+inline void print(const std::tuple<T, U, V>& tuple) {
+    std::cout << "(";
+    print(std::get<0>(tuple));
+    std::cout << ", ";
+    print(std::get<1>(tuple));
+    std::cout << ", ";
+    print(std::get<2>(tuple));
+    std::cout << ")";
+}
 
 template<typename T, typename U, typename V, typename W>
-void print(const std::tuple<T, U, V, W>&);
-
-
-
-namespace log {
-    enum class Level {
-        DEBUG,
-        INFO,
-        WARNING,
-        ERROR,
-        FATAL
-    };
-
-    std::ofstream log_file;
-
-    void info(const char*);
-    void info(const std::string&);
-
-    void warn(const char*);
-    void warn(const std::string&);
-
-    void error(const char*);
-    void error(const std::string&);
-
-    void fatal(const char*);
-    void fatal(const std::string&);
-
-    void debug(const char*);
-    void debug(const std::string&);
-
-    void open_log_file(const char*);
-    void close_log_file();
-    void write_to_log_file(const char*);
+inline void print(const std::tuple<T, U, V, W>& tuple) {
+    std::cout << "(";
+    print(std::get<0>(tuple));
+    std::cout << ", ";
+    print(std::get<1>(tuple));
+    std::cout << ", ";
+    print(std::get<2>(tuple));
+    std::cout << ", ";
+    print(std::get<3>(tuple));
+    std::cout << ")";
 }

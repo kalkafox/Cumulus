@@ -3,5 +3,5 @@
 #include "logging.hpp"
 
 namespace cumulus {
-    constexpr char* version = "lulz";
+    const char* version = "lulz";
 }
