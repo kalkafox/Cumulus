@@ -5,6 +5,8 @@
 #include <vector>
 #include <set>
 #include <map>
+#include <memory>
+
 
 template<typename T>
 inline void print(const T& t) { std::cout << t; }
