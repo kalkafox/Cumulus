@@ -1,24 +1,12 @@
 [package]
 name = "cumulus"
-version = "0.0.1"
+version = "0.0.3"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 chrono = "0.4.19"
-rlua = "0.19.4"
-http = "0.2.8"
 directories = "4.0.1"
 ctrlc = "3.2.3"
 colored = "2"
-
-[dependencies.windows]
-version = "0.42.0"
-features = [
-    "Win32_UI_WindowsAndMessaging",
-    "Win32_Foundation",
-    "Win32_Security",
-    "Win32_System_Threading",
-    "Win32_UI_WindowsAndMessaging",
-]
