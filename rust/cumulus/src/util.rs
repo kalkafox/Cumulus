@@ -1,5 +1,6 @@
 use colored::Colorize;
 use crate::logger;
+use std::io::Read;
 
 pub fn attach_interrupt_handler(mut function: Option<fn()>) {
 
