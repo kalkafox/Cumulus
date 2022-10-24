@@ -14,10 +14,10 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-use std::fs::{File, OpenOptions};
-use std::io::Write;
 use colored::Colorize;
 use directories::ProjectDirs;
+use std::fs::{File, OpenOptions};
+use std::io::Write;
 
 static mut LOG_FILE: Option<File> = None;
 static mut OUTPUT_PATH: String = String::new();
@@ -38,6 +38,10 @@ fn open_file(output_path: &str) -> std::io::Result<File> {
 
 // Whether to enable colored output on the console or not.
 pub fn set_virtual_terminal(flag: bool) {
+    // Return if using Linux
+    if cfg!(target_os = "linux") {
+        return;
+    }
     colored::control::set_virtual_terminal(flag).unwrap();
 }
 
@@ -51,7 +55,6 @@ pub fn open_log_file_for_saving(custom_path: Option<&str>) -> std::io::Result<()
             // Get project directories
             let project_dirs = ProjectDirs::from("com", "Rust", project_name).unwrap();
 
-
             let output_path = format!(
                 "{}/output-{}.log",
                 project_dirs.data_dir().to_str().unwrap(),
@@ -63,7 +66,13 @@ pub fn open_log_file_for_saving(custom_path: Option<&str>) -> std::io::Result<()
             if log_file.is_ok() {
                 LOG_FILE = Some(log_file.unwrap());
             } else {
-                error(format!("Could not open log file for saving: {}", log_file.unwrap_err()).as_str());
+                error(
+                    format!(
+                        "Could not open log file for saving: {}",
+                        log_file.unwrap_err()
+                    )
+                    .as_str(),
+                );
             }
         }
     }
@@ -76,13 +85,7 @@ fn write_to_log_file(message: &str) {
             // Open "output-mm-dd-yyyy.log" in the default output path
             // Filter out ANSI color codes
             const ANSI_COLOR_CODES: [&str; 8] = [
-                "\x1b[0m",
-                "\x1b[31m",
-                "\x1b[32m",
-                "\x1b[33m",
-                "\x1b[34m",
-                "\x1b[35m",
-                "\x1b[36m",
+                "\x1b[0m", "\x1b[31m", "\x1b[32m", "\x1b[33m", "\x1b[34m", "\x1b[35m", "\x1b[36m",
                 "\x1b[37m",
             ];
 
