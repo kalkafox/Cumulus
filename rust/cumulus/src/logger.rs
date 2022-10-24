@@ -1,6 +1,6 @@
 use std::fs::{File, OpenOptions};
 use std::io::Write;
-use ansi_term::Colour::*;
+use colored::Colorize;
 use directories::ProjectDirs;
 
 static mut LOG_FILE: Option<File> = None;
@@ -18,6 +18,11 @@ fn open_file(output_path: &str) -> std::io::Result<File> {
         .append(true)
         .open(output_path)?;
     Ok(file)
+}
+
+// Whether to enable colored output on the console or not.
+pub fn set_virtual_terminal(flag: bool) {
+    colored::control::set_virtual_terminal(flag).unwrap();
 }
 
 pub fn open_log_file_for_saving(custom_path: Option<&str>) -> std::io::Result<()> {
@@ -81,7 +86,7 @@ pub fn timestamp(colored: bool) -> String {
     // fmt for milliseconds is %3f
     let timestamp = now.format("%Y-%m-%d %H:%M:%S.%3f").to_string();
     if colored {
-        return format!("[{}]", Green.paint(timestamp));
+        return format!("[{}]", timestamp.green());
     }
     format!("[{}]", timestamp)
 }
@@ -90,7 +95,7 @@ pub fn info(message: &str) {
     println!(
         "{} {} {}",
         timestamp(true),
-        format!("[{}]", Green.paint("INFO")),
+        format!("[{}]", "INFO".green()),
         message
     );
     write_to_log_file(&format!("{} [INFO] {}\r\n", timestamp(false), message));
@@ -100,7 +105,7 @@ pub fn warn(message: &str) {
     println!(
         "{} {} {}",
         timestamp(true),
-        format!("[{}]", Yellow.paint("WARN")),
+        format!("[{}]", "WARN".yellow()),
         message
     );
     write_to_log_file(&format!("{} [WARN] {}\r\n", timestamp(false), message));
@@ -110,7 +115,7 @@ pub fn error(message: &str) {
     println!(
         "{} {} {}",
         timestamp(true),
-        format!("[{}]", Red.paint("ERROR")),
+        format!("[{}]", "ERROR".red()),
         message
     );
     write_to_log_file(&format!("{} [ERROR] {}\r\n", timestamp(false), message));
@@ -120,7 +125,7 @@ pub fn debug(message: &str) {
     println!(
         "{} {} {}",
         timestamp(true),
-        format!("[{}]", Blue.paint("DEBUG")),
+        format!("[{}]", "DEBUG".blue()),
         message
     );
     write_to_log_file(&format!("{} [DEBUG] {}\r\n", timestamp(false), message));
@@ -130,7 +135,7 @@ pub fn trace(message: &str) {
     println!(
         "{} {} {}",
         timestamp(true),
-        format!("[{}]", Purple.paint("TRACE")),
+        format!("[{}]", "TRACE".purple()),
         message
     );
     write_to_log_file(&format!("{} [TRACE] {}\r\n", timestamp(false), message));
@@ -140,7 +145,7 @@ pub fn fatal(message: &str) {
     println!(
         "{} {} {}",
         timestamp(true),
-        format!("[{}]", Red.paint("FATAL")),
+        format!("[{}]", "FATAL".red()),
         message
     );
     write_to_log_file(&format!("{} [FATAL] {}\r\n", timestamp(false), message));
