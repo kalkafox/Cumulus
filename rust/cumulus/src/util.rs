@@ -16,7 +16,6 @@
 */
 use crate::logger;
 use colored::Colorize;
-use std::io::Read;
 
 pub fn attach_interrupt_handler(mut function: Option<fn()>) {
     if function.is_none() {
