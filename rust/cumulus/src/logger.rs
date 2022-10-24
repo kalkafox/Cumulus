@@ -37,12 +37,14 @@ fn open_file(output_path: &str) -> std::io::Result<File> {
 }
 
 // Whether to enable colored output on the console or not.
-pub fn set_virtual_terminal(flag: bool) {
-    // Return if using Linux
-    if cfg!(target_os = "linux") {
-        return;
-    }
-    colored::control::set_virtual_terminal(flag).unwrap();
+macro_rules! set_virtual_terminal {
+    ($enable:expr) => {
+        // Check if the platform is Windows
+        if cfg!(windows) {
+            // Check if the console is a virtual terminal
+            colored::control::set_virtual_terminal($enable);
+        }
+    };
 }
 
 pub fn open_log_file_for_saving(custom_path: Option<&str>) -> std::io::Result<()> {
