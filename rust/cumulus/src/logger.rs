@@ -37,7 +37,7 @@ fn open_file(output_path: &str) -> std::io::Result<File> {
 }
 
 // Whether to enable colored output on the console or not.
-macro_rules! set_virtual_terminal {
+pub macro_rules! set_virtual_terminal {
     ($enable:expr) => {
         // Check if the platform is Windows
         if cfg!(windows) {
