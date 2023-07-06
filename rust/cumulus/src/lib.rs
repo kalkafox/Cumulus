@@ -16,3 +16,73 @@
 */
 pub mod logger;
 pub mod util;
+
+use console::{style, Color};
+
+// Helper function for printing colored messages
+pub fn print_colored_message(msg_type: &str, msg: &str, color: Color) {
+    // Get the current time
+    let now = chrono::Local::now();
+    print!(
+        "{}{}{} {} {}",
+        style("[").bold(),
+        style(now.format("%H:%M:%S")).fg(Color::Cyan).bold(),
+        style("]").bold(),
+        style(msg_type).fg(color).bold(),
+        msg
+    );
+}
+
+// colored info
+// 
+#[macro_export]
+macro_rules! cinfo {
+    ($($arg:tt)*) => {
+        $crate::print_colored_message(" ", &format!($($arg)*), console::Color::Green);
+    };
+}
+
+// colored info with newline
+#[macro_export]
+macro_rules! cinfoln {
+    ($($arg:tt)*) => {
+        $crate::cinfo!($($arg)*);
+        println!();
+    };
+}
+
+// colored warning
+// 
+#[macro_export]
+macro_rules! cwarn {
+    ($($arg:tt)*) => {
+        $crate::print_colored_message(" ", &format!($($arg)*), console::Color::Yellow);
+    };
+}
+
+// colored warning with newline
+#[macro_export]
+macro_rules! cwarnln {
+    ($($arg:tt)*) => {
+        $crate::cwarn!($($arg)*);
+        println!();
+    };
+}
+
+// colored error
+// 
+#[macro_export]
+macro_rules! cerr {
+    ($($arg:tt)*) => {
+        $crate::print_colored_message(" ", &format!($($arg)*), console::Color::Red);
+    };
+}
+
+// colored error with newline
+#[macro_export]
+macro_rules! cerrln {
+    ($($arg:tt)*) => {
+        $crate::cerr!($($arg)*);
+        println!();
+    };
+}

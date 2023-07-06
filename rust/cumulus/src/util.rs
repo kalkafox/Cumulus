@@ -14,13 +14,13 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-use crate::logger;
-use colored::Colorize;
+
+use crate::cinfoln;
 
 pub fn attach_interrupt_handler(mut function: Option<fn()>) {
     if function.is_none() {
         function = Some(|| {
-            logger::info("Exiting...".red().bold().to_string().as_str());
+            cinfoln!("Ctrl-C pressed, exiting...");
             // Safely exit the program
             std::process::exit(0);
         });
